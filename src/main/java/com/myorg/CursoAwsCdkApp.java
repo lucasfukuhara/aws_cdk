@@ -6,7 +6,10 @@ public class CursoAwsCdkApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new VpcStack(app, "Vpc");
+        VpcStack vpc = new VpcStack(app, "Vpc");
+        ClusterStack clusterStack = new ClusterStack(app, "Cluster", vpc.getVpc());
+        clusterStack.addDependency(vpc); // como o cluster depende da criação da VPC, precisamos setar isso no cdk
+
 
         app.synth();
     }

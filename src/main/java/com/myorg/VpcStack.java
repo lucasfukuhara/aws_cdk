@@ -7,6 +7,11 @@ import software.constructs.Construct;
 
 public class VpcStack extends Stack {
 
+    public Vpc getVpc() {
+        return vpc;
+    }
+
+    private final Vpc vpc;
     private static final int MAX_ZONES = 3;
 
     public VpcStack(final Construct scope, final String id) {
@@ -16,7 +21,7 @@ public class VpcStack extends Stack {
     public VpcStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
 
-        Vpc.Builder.create(this, "Vpc01")
+        this.vpc = Vpc.Builder.create(this, "Vpc01")
                 .maxAzs(MAX_ZONES)
                 .natGateways(0)
                 .build();
